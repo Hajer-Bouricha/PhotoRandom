@@ -9,11 +9,31 @@ async function fetchRandomPhotos() {
     );
     const photos = await response.json();
 
-    // add each photo in the grid
-    photos.forEach((photo) => {
+    // add each photo in the grid with title and description
+    photos.forEach((photo, index) => {
+      const photoItem = document.createElement("div");
+      photoItem.classList.add("photo-item");
+
+
       const imgElement = document.createElement("img");
       imgElement.src = photo.urls.regular;
-      imgElement.alt = photo.alt_description;
+
+      // create title for each photo (optional  - static title for now)
+      const titleElement = document.createElement("h2");
+      titleElement.innerText=`collection ${index+1}`;
+
+
+      // create description with random photo count (optional - dynamic text)
+      const descriptionElement = document.createElement("p");
+      descriptionElement.innerText = `${Math.floor(Math.random()*20)+1} PHOTOS`;
+      
+      // Append elements to the photo item
+      photoItem.appendChild(imgElement);
+      photoItem.appendChild(titleElement);
+      photoItem.appendChild(descriptionElement);
+
+
+      //Append the photo item to the grid
       photoGrid.appendChild(imgElement);
     });
   } catch (error) {
